@@ -1,0 +1,25 @@
+PROTOCOL,REMOTE,FUNCTION,HEX CODE
+NEC,flood,OFF,FF609F
+NEC,flood,ON,FFE01F
+NEC,flood,BRIGHTNESS UP,FFA05F
+NEC,flood,red,FF906F
+NEC,flood,medium orange,FFB04F
+NEC,flood,dark orange,FFA857
+NEC,flood,light orange,FF9867
+NEC,flood,yellow,FF8877
+NEC,flood,BRIGHTNESS DOWN,FF20DF
+NEC,flood,green,FF10EF
+NEC,flood,light green,FF30CF
+NEC,flood,sky blue,FF28D7
+NEC,flood,turquoise,FF18E7
+NEC,flood,dark cyan,FF08F7
+NEC,flood,blue (dark),FF50AF
+NEC,flood,medium blue,FF708F
+NEC,flood,purple,FF6897
+NEC,flood,magenta,FF58A7
+NEC,flood,pink,FF48B7
+NEC,flood,white,FFD02F
+NEC,flood,FLASH,FFF00F
+NEC,flood,STROBE,FFE817
+NEC,flood,FADE,FFD827
+NEC,flood,SMOOTH,FFC837
