@@ -1,11 +1,13 @@
 
 void mouseClicked() {
+  /*
   if (mouseX < (numCols * xSpacing)){
   count = (mouseY / int(ySpacing));
 
   println("Clicked on " + count);
   sendCode(count);
   }
+  */
 }
 
 void keyReleased() {

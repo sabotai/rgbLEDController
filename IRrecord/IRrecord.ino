@@ -62,14 +62,14 @@ void storeCode(decode_results *results) {
       if (i % 2) {
         // Mark
         rawCodes[i - 1] = results->rawbuf[i]*USECPERTICK - MARK_EXCESS;
-        Serial.print(" m");
+        //Serial.print(" m");
       } 
       else {
         // Space
         rawCodes[i - 1] = results->rawbuf[i]*USECPERTICK + MARK_EXCESS;
-        Serial.print(" s");
+        //Serial.print(" s");
       }
-      Serial.print(rawCodes[i - 1], DEC);
+      //Serial.print(rawCodes[i - 1], DEC);
     }
     Serial.println("");
   }

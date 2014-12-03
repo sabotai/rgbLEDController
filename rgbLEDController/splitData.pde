@@ -12,4 +12,14 @@ void splitData() {
       data[i][j] = pieces[j];
     }
   }
+  
+  
+  for (int i = 2; i < numRows; i++){ //skip title and start comparison against the first one
+   if (data[i][1].equals(data[i-1][1]) == false){
+     division = i; //new remote type delineation
+     howManyTypes++;
+     println("old = " + data[i-1][1] + "  new = " + data[i][1]);
+   } 
+  }
+  println("new type starting at row " + division);
 }

@@ -1,69 +1,69 @@
-PROTOCOL,REMOTE,FUNCTION,HEX CODE,
-NEC,flood;bulb,OFF,FF609F,
-NEC,flood;bulb,ON,FFE01F,
-NEC,flood;bulb,BRIGHTNESS UP,FFA05F,
-NEC,flood;bulb,red,FF906F,
-NEC,flood;bulb,medium orange,FFB04F,
-NEC,flood;bulb,dark orange,FFA857,
-NEC,flood;bulb,light orange,FF9867,
-NEC,flood;bulb,yellow,FF8877,
-NEC,flood;bulb,BRIGHTNESS DOWN,FF20DF,
-NEC,flood;bulb,green,FF10EF,
-NEC,flood;bulb,light green,FF30CF,
-NEC,flood;bulb,sky blue,FF28D7,
-NEC,flood;bulb,turquoise,FF18E7,
-NEC,flood;bulb,dark cyan,FF08F7,
-NEC,flood;bulb,blue (dark),FF50AF,
-NEC,flood;bulb,medium blue,FF708F,
-NEC,flood;bulb,purple,FF6897,
-NEC,flood;bulb,magenta,FF58A7,
-NEC,flood;bulb,fuchsia,FF48B7,
-NEC,flood;bulb,white,FFD02F,
-NEC,flood;bulb,FLASH,FFF00F,
-NEC,flood;bulb,STROBE,FFE817,
-NEC,flood;bulb,FADE,FFD827,
-NEC,flood;bulb,SMOOTH,FFC837,
-NEC,strip,POWER ON/OFF,FF02FD,
-NEC,strip,NEXT (PAUSE),FF827D,
-NEC,strip,green,FF9A65,
-NEC,strip,red,FF1AE5,
-NEC,strip,orange,FF2AD5,
-NEC,strip,dark orange,FF0AF5,
-NEC,strip,light orange,FF28C7,more greenish
-NEC,strip,yellow,FF18E7,basically green
-NEC,strip,light green,FFAA55,
-NEC,strip,sky blue,FF8A75,actually green-blue
-NEC,strip,turquoise,FFB847,
-NEC,strip,dark cyan,FF9867,
-NEC,strip,blue (dark),FFA25D,
-NEC,strip,medium blue,FF926D,
-NEC,strip,purple,FFB24D,
-NEC,strip,magenta,FF7887,
-NEC,strip,fuchsia,FF58A7,
-NEC,strip,white,FF22DD,
-NEC,strip,bluish white,FF12ED,
-NEC,strip,purplish white,FF32CD,
-NEC,strip,aqua blue,FFF807,
-NEC,strip,sky blue,FFD827,
-NEC,strip,GREEN UP,FFA857,
-NEC,strip,GREEN DOWN,FF8877,
-NEC,strip,BLUE UP,FF6887,
-NEC,strip,BLUE DOWN,FF48B7,
-NEC,strip,RED UP,FF28D7,
-NEC,strip,RED DOWN,FF08F7,
-NEC,strip,DIY 1,FF30CF,
-NEC,strip,DIY 2,FFB04F,
-NEC,strip,DIY 3,FF708F,
-NEC,strip,DIY 4,FF10EF,
-NEC,strip,DIY 5,FF906F,
-NEC,strip,DIY 6,FF50AF,
-NEC,strip,QUICK,FFE817,
-NEC,strip,SLOW,FFC837,
-NEC,strip,AUTO,FFF00F,
-NEC,strip,FLASH,FFD02F,
-NEC,strip,FADE 7,FFE01F,
-NEC,strip,FADE 3,FF609F,
-NEC,strip,JUMP 7,FFA05F,
-NEC,strip,JUMP 3,FF20DF,
-NEC,strip,BRIGHTNESS UP,FF3AC5,
-NEC,strip,BRIGHTNESS DOWN,FFBA45,
+PROTOCOL,REMOTE,FUNCTION,HEX CODE,IS COLOR
+NEC,flood;bulb,OFF,FF609F,no
+NEC,flood;bulb,ON,FFE01F,no
+NEC,flood;bulb,BRIGHTNESS UP,FFA05F,no
+NEC,flood;bulb,red,FF906F,yes
+NEC,flood;bulb,medium orange,FFB04F,yes
+NEC,flood;bulb,dark orange,FFA857,yes
+NEC,flood;bulb,light orange,FF9867,yes
+NEC,flood;bulb,yellow,FF8877,yes
+NEC,flood;bulb,BRIGHTNESS DOWN,FF20DF,no
+NEC,flood;bulb,green,FF10EF,yes
+NEC,flood;bulb,light green,FF30CF,yes
+NEC,flood;bulb,sky blue,FF28D7,yes
+NEC,flood;bulb,turquoise,FF18E7,yes
+NEC,flood;bulb,dark cyan,FF08F7,yes
+NEC,flood;bulb,blue (dark),FF50AF,yes
+NEC,flood;bulb,medium blue,FF708F,yes
+NEC,flood;bulb,purple,FF6897,yes
+NEC,flood;bulb,magenta,FF58A7,yes
+NEC,flood;bulb,fuchsia,FF48B7,yes
+NEC,flood;bulb,white,FFD02F,yes
+NEC,flood;bulb,FLASH,FFF00F,no
+NEC,flood;bulb,STROBE,FFE817,no
+NEC,flood;bulb,FADE,FFD827,no
+NEC,flood;bulb,SMOOTH,FFC837,no
+NEC,strip,POWER ON/OFF,FF02FD,no
+NEC,strip,NEXT (PAUSE),FF827D,no
+NEC,strip,green,FF9A65,yes
+NEC,strip,red,FF1AE5,yes
+NEC,strip,orange,FF2AD5,yes
+NEC,strip,dark orange,FF0AF5,yes
+NEC,strip,light orange,FF28C7,yes
+NEC,strip,yellow,FF18E7,yes
+NEC,strip,light green,FFAA55,yes
+NEC,strip,sky blue (not),FF8A75,yes
+NEC,strip,turquoise,FFB847,yes
+NEC,strip,dark cyan,FF9867,yes
+NEC,strip,blue (dark),FFA25D,yes
+NEC,strip,medium blue,FF926D,yes
+NEC,strip,purple,FFB24D,yes
+NEC,strip,magenta,FF7887,yes
+NEC,strip,fuchsia,FF58A7,yes
+NEC,strip,white,FF22DD,yes
+NEC,strip,bluish white,FF12ED,yes
+NEC,strip,purplish white,FF32CD,yes
+NEC,strip,aqua blue,FFF807,yes
+NEC,strip,sky blue,FFD827,yes
+NEC,strip,GREEN UP,FFA857,no
+NEC,strip,GREEN DOWN,FF8877,no
+NEC,strip,BLUE UP,FF6887,no
+NEC,strip,BLUE DOWN,FF48B7,no
+NEC,strip,RED UP,FF28D7,no
+NEC,strip,RED DOWN,FF08F7,no
+NEC,strip,DIY 1,FF30CF,no
+NEC,strip,DIY 2,FFB04F,no
+NEC,strip,DIY 3,FF708F,no
+NEC,strip,DIY 4,FF10EF,no
+NEC,strip,DIY 5,FF906F,no
+NEC,strip,DIY 6,FF50AF,no
+NEC,strip,QUICK,FFE817,no
+NEC,strip,SLOW,FFC837,no
+NEC,strip,AUTO,FFF00F,no
+NEC,strip,FLASH,FFD02F,no
+NEC,strip,FADE 7,FFE01F,no
+NEC,strip,FADE 3,FF609F,no
+NEC,strip,JUMP 7,FFA05F,no
+NEC,strip,JUMP 3,FF20DF,no
+NEC,strip,BRIGHTNESS UP,FF3AC5,no
+NEC,strip,BRIGHTNESS DOWN,FFBA45,no
