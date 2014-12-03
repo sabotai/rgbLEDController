@@ -18,10 +18,17 @@ int numRows = 0;
 int count = 1;
 float xSpacing, ySpacing;
 
+boolean runCustom = false;
+
+ControlP5 cp5;
+
+String textValue = "";
 
 void setup() 
 {
   size(1920, 1080);
+
+
 
   rawData = loadStrings("data/commandList.csv");
   splitData();
@@ -30,12 +37,43 @@ void setup()
   String portName = Serial.list()[32];
   myPort = new Serial(this, portName, 9600);
 
-  xSpacing = (0.75 * (width/numCols));
+  xSpacing = (0.6 * (width/numCols));
   ySpacing = (height/(numRows+1));
-  textSize(30);
+
+
+  cp5 = new ControlP5(this);
+
+  PFont pfont = createFont("Anita  Semi-square", 30, true); // use true/false for smooth/no-smooth
+  PFont font = createFont("Anita  Semi-square", 48);
+  ControlFont cFont = new ControlFont(pfont, 30);
+
+  textSize(22);
+  //cp5.label
+
+  cp5.addTextfield("Command")
+    .setPosition(xSpacing * numCols, 100)
+      .setSize(400, 80)
+        .setFont(font)
+          .setFocus(true)
+            .setColor(color(100, 100, 255))
+              //.setText(100)
+
+              .setAutoClear(false)
+              .captionLabel().setFont(cFont);
+                ;
+
+  cp5.addBang("submit")
+    .setPosition(xSpacing * numCols+240, 200)
+      .setSize(160, 60)
+        .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+          ;
+          
+  cp5.getController("submit").captionLabel().setFont(cFont);
+
 }
 
 void draw() {
+
 
   // draw out all the entries
   for (int i = 0; i < numCols; i++) {
@@ -46,8 +84,8 @@ void draw() {
         fill(0);
       }
 
-      float xPos = i * xSpacing;
-      float yPos = j * ySpacing;
+      float xPos = 40+ i * xSpacing;
+      float yPos = 40+j * ySpacing;
 
 
       text(data[j][i], xPos, yPos);
@@ -60,40 +98,14 @@ void draw() {
     receivedChar = (char)myPort.read();
     print(receivedChar);
   }
-}
 
-void mouseClicked() {
-  count = (mouseY / int(ySpacing))+1;
+  if (runCustom) {
+    customRun();
+  }
 
-  //if (mouseY < mouseY - yPos < 10){
-  println("Clicked on " + count);
-  sendCode(count);
-  //count = j; 
-  //}
-}
 
-void keyReleased() {
-
-    if (keyCode == UP) {
-      //myPort.write( = str(unhex(data[3][3]));
-      sendCode(3);
-    } else if (keyCode == DOWN) {
-      //bufferString = str(unhex(data[9][3]));
-      sendCode(9);
-    } else {
-      
-    if (keyCode == RIGHT) {
-      count++;
-    } else if (keyCode == LEFT) {
-      count--;
-    }
-    count = constrain(count, 1, numRows-1);
-
-    println(count);
-    //String bufferString = str(unhex(data[myKey][3]));
-    sendCode(count);
-      
-  } 
+  //text(cp5.get(Textfield.class,"input").getText(), 360,130);
+  //text(textValue, 360, 180);
 }
 
 void sendCode(int which) {
@@ -103,17 +115,14 @@ void sendCode(int which) {
   myPort.write('*');  //signal finished command
 }
 
-void splitData() {
 
-  numRows = rawData.length;
-  data = new String[rawData.length][numCols]; //specify how many rows of data with the length function (to make it dynamic) and columns
-
-  for (int i = 0; i < rawData.length; i++) { //for loop to split up the csv columns
-
-    String[] pieces = split(rawData[i], ","); //split function (what it's splitting up, what the split cue is)
-
-    for (int j=0; j<numCols; j++) {
-      data[i][j] = pieces[j];
-    }
+void customRun() {
+  if (frameCount % 50 == 0) {
+    println("go2");
+    sendCode(7);
+  }
+  if (frameCount % 70 == 0) {
+    println("go3");
+    sendCode(15);
   }
 }
