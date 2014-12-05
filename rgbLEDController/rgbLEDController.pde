@@ -24,8 +24,11 @@ float xSpacing, ySpacing;
 boolean runCustom = false;
 boolean doLoop = false;
 float startTime = 0;
-float clearTime =70; //amount of time to wait between commands, otherwise results in garbage
 int loopIterator = 1;
+
+//amount of time to wait between commands, otherwise results in garbage
+//70 was ok for strip, 120 for bulb
+float clearTime =120; 
 
 ControlP5 cp5;
 CheckBox checkbox;
@@ -73,7 +76,7 @@ void setup()
   ;
 
   cp5.addBang("submit")
-    .setPosition(xSpacing * numCols+240, 200)
+    .setPosition(xSpacing * numCols+240, 220)
       .setSize(160, 60)
         .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
           ;
@@ -86,14 +89,14 @@ void setup()
       .setSize(400, 600)
         .setItemHeight(60)
           .setBarHeight(60)
-            .setColorBackground(color(255, 128))
-              .setColorActive(color(0))
-                .setColorForeground(color(255, 100, 0))
+            //.setColorBackground(color(255, 128))
+              //.setColorActive(color(0))
+                //.setColorForeground(color(255, 100, 0))
                   ;
 
   l.captionLabel().toUpperCase(true);
   l.captionLabel().set(data[1][1]);
-  l.captionLabel().setColor(0xffff0000);
+  //l.captionLabel().setColor(0xffff0000);
   l.captionLabel().setFont(cFont);
   l.captionLabel().style().marginTop = 3;
   l.valueLabel().style().marginTop = 3;
@@ -101,7 +104,7 @@ void setup()
 
   for (int i=1; i<division; i++) {
     ListBoxItem lbi = l.addItem(data[i][2], i);
-    lbi.setColorBackground(0xffff0000);
+    //lbi.setColorBackground(0xffff0000);
   }
 
   l1 = cp5.addListBox("type2List")
@@ -109,21 +112,21 @@ void setup()
       .setSize(400, 600)
         .setItemHeight(60)
           .setBarHeight(60)
-            .setColorBackground(color(255, 128))
-              .setColorActive(color(0))
-                .setColorForeground(color(255, 100, 0))
+            //.setColorBackground(color(255, 128))
+              //.setColorActive(color(0))
+                //.setColorForeground(color(255, 100, 0))
                   ;
 
   l1.captionLabel().toUpperCase(true);
   l1.captionLabel().set(data[division][1]);
-  l1.captionLabel().setColor(0xffff0000);
+  //l1.captionLabel().setColor(0xffff0000);
   l1.captionLabel().setFont(cFont);
   l1.captionLabel().style().marginTop = 3;
   l1.valueLabel().style().marginTop = 3;
 
   for (int i=division; i<numRows; i++) {
     ListBoxItem lbi = l1.addItem(data[i][2], i);
-    lbi.setColorBackground(0xffff0000);
+    //lbi.setColorBackground(0xffff0000);
   }
 
 
@@ -149,6 +152,33 @@ void setup()
       }
     }
   }
+
+/*
+//replaced with slider
+  cp5.addTextfield("Loop Buffer Clear Time")
+    .setPosition(xSpacing * numCols, 300)
+      .setSize(400, 80)
+        .setFont(font)
+          .setFocus(true)
+            .setColor(color(100, 100, 255))
+              //.setText(100)
+
+              .setAutoClear(false)
+                .captionLabel().setFont(cFont);
+  ;
+
+  cp5.addBang("update")
+    .setPosition(xSpacing * numCols+220, 420)
+      .setSize(180, 60)
+        .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+          ;
+*/
+  cp5.addSlider("clearTime")
+    .setPosition(xSpacing * numCols, 300)
+    .setSize(400,40)
+     .setRange(70,10000)
+     ;
+     
 }
 
 void draw() {

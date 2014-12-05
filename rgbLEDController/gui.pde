@@ -10,6 +10,10 @@ public void submit() {
 
   cp5.get(Textfield.class, "Command").clear();
 }
+public void update() {
+  clearTime = float(cp5.get(Textfield.class, "Loop Buffer Clear Time").getText());
+  println("clearTime changed to " + clearTime);
+}
 
 
 public void input(String theText) {
@@ -32,8 +36,11 @@ void controlEvent(ControlEvent theEvent) {
     println("test "+test);
     sendCode(test);
   }
-
-
+/*
+  if (theEvent.name().equals("clearTime") == true) {
+    clearTime = bufferClearTime;
+  }
+*/
 
   if (theEvent.isFrom(checkbox)) {
     int checks = 0;
