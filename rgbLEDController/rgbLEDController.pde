@@ -3,7 +3,18 @@ import processing.serial.*;
 import controlP5.*;
 
 
-Serial myPort;  // Create object from Serial class
+import ddf.minim.ugens.*;
+import ddf.minim.analysis.*;
+import ddf.minim.*;
+import ddf.minim.signals.*;
+
+
+
+
+
+Serial myPort, myPort1;  // Create object from Serial class
+int numOutputs = 1;
+
 int val;        // Data received from the serial port
 
 
@@ -18,7 +29,7 @@ int numRows = 0;
 int division = 0; //keep track of which row has a new 
 int howManyTypes = 0;
 
-int count = 1;
+int count = 2;
 float xSpacing, ySpacing;
 
 boolean runCustom = false;
@@ -36,9 +47,35 @@ ListBox l, l1;
 
 String textValue = "";
 
+
+////////////////////////////////////
+//  audio visualizer
+//values setup to work with headphones
+
+Boolean doAudioViz = false;
+float audioThreshold = 1.1;
+
+Minim minim;
+AudioInput in;
+AudioOutput out;
+
+Oscil fm;
+InputOutputBind signal;
+
+float buffer[];
+float gain;
+FFT fft;
+float avg, strokeSize;
+float scaleAmt, rotAmt, transZ;
+
+
+
+//
+////////////////////////////////////
+
 void setup() 
 {
-  size(1920, 1080);
+  size(1920, 1080, P3D);
 
 
 
@@ -48,7 +85,10 @@ void setup()
   println(Serial.list());
   String portName = Serial.list()[32];
   myPort = new Serial(this, portName, 9600);
-
+  if (numOutputs > 1) {
+    String portName1 = Serial.list()[33];
+    myPort1 = new Serial(this, portName1, 9600);
+  }
   xSpacing = (0.6 * (width/numCols));
   ySpacing = (height/(numRows+1));
 
@@ -90,9 +130,9 @@ void setup()
         .setItemHeight(60)
           .setBarHeight(60)
             //.setColorBackground(color(255, 128))
-              //.setColorActive(color(0))
-                //.setColorForeground(color(255, 100, 0))
-                  ;
+            //.setColorActive(color(0))
+            //.setColorForeground(color(255, 100, 0))
+            ;
 
   l.captionLabel().toUpperCase(true);
   l.captionLabel().set(data[1][1]);
@@ -113,9 +153,9 @@ void setup()
         .setItemHeight(60)
           .setBarHeight(60)
             //.setColorBackground(color(255, 128))
-              //.setColorActive(color(0))
-                //.setColorForeground(color(255, 100, 0))
-                  ;
+            //.setColorActive(color(0))
+            //.setColorForeground(color(255, 100, 0))
+            ;
 
   l1.captionLabel().toUpperCase(true);
   l1.captionLabel().set(data[division][1]);
@@ -153,32 +193,76 @@ void setup()
     }
   }
 
-/*
+  /*
 //replaced with slider
-  cp5.addTextfield("Loop Buffer Clear Time")
-    .setPosition(xSpacing * numCols, 300)
-      .setSize(400, 80)
-        .setFont(font)
-          .setFocus(true)
-            .setColor(color(100, 100, 255))
-              //.setText(100)
-
-              .setAutoClear(false)
-                .captionLabel().setFont(cFont);
-  ;
-
-  cp5.addBang("update")
-    .setPosition(xSpacing * numCols+220, 420)
-      .setSize(180, 60)
-        .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
-          ;
-*/
+   cp5.addTextfield("Loop Buffer Clear Time")
+   .setPosition(xSpacing * numCols, 300)
+   .setSize(400, 80)
+   .setFont(font)
+   .setFocus(true)
+   .setColor(color(100, 100, 255))
+   //.setText(100)
+   
+   .setAutoClear(false)
+   .captionLabel().setFont(cFont);
+   ;
+   
+   cp5.addBang("update")
+   .setPosition(xSpacing * numCols+220, 420)
+   .setSize(180, 60)
+   .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+   ;
+   */
   cp5.addSlider("clearTime")
     .setPosition(xSpacing * numCols, 300)
-    .setSize(400,40)
-     .setRange(70,10000)
-     ;
-     
+      .setSize(400, 40)
+        .setRange(70, 5000)
+          ;
+
+  cp5.addSlider("audioThreshold")
+    .setPosition(xSpacing * numCols, 360)
+      .setSize(400, 40)
+        .setRange(0, 3)
+          ;
+
+
+///////////////////////////////
+// audio visualizer
+
+
+  minim = new Minim(this);
+  gain = height;
+  int bufferSize = 1024;
+
+  in = minim.getLineIn(Minim.MONO, bufferSize);
+ 
+  buffer = new float[in.bufferSize()];
+  fft = new FFT(in.bufferSize(), in.sampleRate());
+  println(in.bufferSize());
+  
+  
+  out = minim.getLineOut(Minim.MONO, bufferSize);
+  
+  
+  signal = new InputOutputBind(bufferSize);
+  //add listener to gather incoming data
+  in.addListener(signal);
+  // adds the signal to the output
+  //out.addSignal(signal);
+  /*
+  
+  Oscil wave = new Oscil( 200, 0.8, Waves.TRIANGLE );
+
+  fm   = new Oscil( 10, 2, Waves.SINE );
+  fm.offset.setLastValue( 200 );
+  fm.patch( wave.frequency );
+  wave.patch( out );
+  */
+  
+  
+  /////////////////////////////////
+
+
 }
 
 void draw() {
@@ -196,10 +280,12 @@ void draw() {
   }
 
 
-  //text(cp5.get(Textfield.class,"input").getText(), 360,130);
-  //text(textValue, 360, 180);
   if (doLoop) {
     loops();
+  }
+  
+  if (doAudioViz){
+   audioViz(); 
   }
 }
 

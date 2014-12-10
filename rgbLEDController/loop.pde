@@ -10,17 +10,18 @@ void loops() {
         //print(n);
         //println("sending " + loopIterator);
         sendCode(int(checkbox.getItem(loopIterator).internalValue()));
-      startTime = millis();
-      loopIterator++;
+        startTime = millis();
+        loopIterator++;
       }
     } else {
       startTime = millis();
       loopIterator++;
     }
-  
-}
- loopIterator = 1;
- println("loop completed");
- //doLoop = false; 
+  }
+  loopIterator = 1;
+  //println("loop completed");
 
+  if (doAudioViz) {
+    doLoop = false;
+  }
 }

@@ -26,7 +26,8 @@ void keyReleased() {
     } else if (keyCode == LEFT) {
       count--;
     } else if (keyCode == ENTER) {
-      runCustom = !runCustom;
+      //runCustom = !runCustom;
+      doAudioViz = !doAudioViz;
     }
     count = constrain(count, 1, numRows-1);
 
