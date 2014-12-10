@@ -219,12 +219,19 @@ void setup()
         .setRange(70, 5000)
           ;
 
-  cp5.addSlider("audioThreshold")
+
+  // create a toggle
+  cp5.addToggle("doAudioViz")
     .setPosition(xSpacing * numCols, 360)
+     .setSize(50,40)
+     .setMode(ControlP5.SWITCH)
+     ;
+  
+  cp5.addSlider("audioThreshold")
+    .setPosition(xSpacing * numCols, 450)
       .setSize(400, 40)
         .setRange(0, 3)
           ;
-
 
 ///////////////////////////////
 // audio visualizer
