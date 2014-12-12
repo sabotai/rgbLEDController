@@ -230,7 +230,8 @@ if (finishedReceiving){
       digitalWrite(STATUS_PIN, HIGH);
       irsend.sendNEC(customCodeValue, customCodeLen);
       Serial.print("Sent NEC ");
-      Serial.println(customCodeValue, HEX);
+      Serial.print(customCodeValue, HEX);
+      Serial.println(" *");
       delay(50); // Wait a bit between retransmissions
 
       digitalWrite(STATUS_PIN, LOW);

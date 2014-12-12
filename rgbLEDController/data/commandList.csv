@@ -1,6 +1,6 @@
-PROTOCOL,REMOTE,FUNCTION,HEX CODE,IS COLOR
-NEC,flood;bulb,OFF,FF609F,no
-NEC,flood;bulb,ON,FFE01F,no
+PROTOCOL,REMOTE,FUNCTION,HEX CODE,LOOP
+NEC,flood;bulb,OFF,FF609F,yes
+NEC,flood;bulb,ON,FFE01F,yes
 NEC,flood;bulb,BRIGHTNESS UP,FFA05F,no
 NEC,flood;bulb,red,FF906F,yes
 NEC,flood;bulb,medium orange,FFB04F,yes

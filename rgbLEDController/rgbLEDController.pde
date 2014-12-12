@@ -13,16 +13,17 @@ import ddf.minim.signals.*;
 
 
 Serial myPort, myPort1;  // Create object from Serial class
-int numOutputs = 1;
+int numOutputs = 2;
 
 int val;        // Data received from the serial port
-
+int outputChannel = 0;
 
 String[] rawData;
 String[][] data;
 int selected = -1;
-char receivedChar;
-String received;
+char receivedChar, receivedChar1;
+String received = "";
+String received1 = "";
 
 int numCols = 5; //specify this manually
 int numRows = 0;
@@ -34,12 +35,14 @@ float xSpacing, ySpacing;
 
 boolean runCustom = false;
 boolean doLoop = false;
+boolean ready = true; //finished receiving last transmission and ready for new one
+boolean ready1 = true;
 float startTime = 0;
 int loopIterator = 1;
 
 //amount of time to wait between commands, otherwise results in garbage
 //70 was ok for strip, 120 for bulb
-float clearTime =120; 
+float clearTime =70; 
 
 ControlP5 cp5;
 CheckBox checkbox;
@@ -52,7 +55,7 @@ String textValue = "";
 //  audio visualizer
 //values setup to work with headphones
 
-Boolean doAudioViz = false;
+boolean doAudioViz = false;
 float audioThreshold = 1.1;
 
 Minim minim;
@@ -83,11 +86,17 @@ void setup()
   splitData();
 
   println(Serial.list());
-  String portName = Serial.list()[32];
+  
+  if (numOutputs != 1){
+  String portName = Serial.list()[33];
   myPort = new Serial(this, portName, 9600);
-  if (numOutputs > 1) {
-    String portName1 = Serial.list()[33];
+    String portName1 = Serial.list()[0];
     myPort1 = new Serial(this, portName1, 9600);
+  } else {
+  if (numOutputs > 1) {
+    String portName = Serial.list()[32];
+    myPort = new Serial(this, portName, 9600);
+  }
   }
   xSpacing = (0.6 * (width/numCols));
   ySpacing = (height/(numRows+1));
@@ -99,7 +108,12 @@ void setup()
   PFont font = createFont("Anita  Semi-square", 48);
   ControlFont cFont = new ControlFont(pfont, 22);
 
-  cp5.setControlFont(cFont);
+  cp5.setControlFont(cFont);/*
+   cp5.setColorForeground(0xffaa0000);
+  cp5.setColorBackground(0xff660000);
+  cp5.setColorLabel(0xffdddddd);
+  cp5.setColorValue(0xffff88ff);
+  cp5.setColorActive(0xffff0000);*/
   textSize(22);
   //cp5.label
 
@@ -216,7 +230,7 @@ void setup()
   cp5.addSlider("clearTime")
     .setPosition(xSpacing * numCols, 300)
       .setSize(400, 40)
-        .setRange(70, 5000)
+        .setRange(0, 5000)
           ;
 
 
@@ -243,17 +257,20 @@ void setup()
 
   in = minim.getLineIn(Minim.MONO, bufferSize);
  
-  buffer = new float[in.bufferSize()];
-  fft = new FFT(in.bufferSize(), in.sampleRate());
-  println(in.bufferSize());
   
   
   out = minim.getLineOut(Minim.MONO, bufferSize);
+  //out = minim.getLineOutMinim.MONO), bufferSize);
+  
+  buffer = new float[in.bufferSize()];
+  //println(in.bufferSize());
+  
+  fft = new FFT(in.bufferSize(), in.sampleRate());
   
   
-  signal = new InputOutputBind(bufferSize);
+  //signal = new InputOutputBind(bufferSize);
   //add listener to gather incoming data
-  in.addListener(signal);
+  //in.addListener(signal);
   // adds the signal to the output
   //out.addSignal(signal);
   /*
@@ -279,7 +296,26 @@ void draw() {
   //show the serial read in the console
   if (myPort.available() > 0) {
     receivedChar = (char)myPort.read();
-    print(receivedChar);
+    if (receivedChar == '*') {
+      println("output 1: " + received);
+      received = "";
+      ready = true;
+    } else{
+      received += receivedChar;
+    }
+  }
+  
+  if (numOutputs > 1){
+  if (myPort1.available() > 0) {
+    receivedChar1 = (char)myPort1.read();
+    if (receivedChar1 == '*') {
+      println("output 1: " + received1);
+      received1 = "";
+      ready1 = true;
+    } else{
+      received1 += receivedChar1;
+    }
+  }
   }
 
   if (runCustom) {

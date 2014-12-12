@@ -1,9 +1,11 @@
 
 void sendCode(int which) {
-  int outputChannel = 0;
 
-  if (which > division) {
+  if (which >= division) {
     outputChannel = 1;
+  } else {
+  outputChannel = 0;
+    
   }
 
 
